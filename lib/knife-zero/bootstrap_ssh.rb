@@ -19,7 +19,11 @@ class Chef
                         '127.0.0.1'
         (subsession || session).servers.each do |server|
           session = server.session(true)
-          session.forward.remote(chef_zero_port, chef_zero_host, ::Knife::Zero::Helper.zero_remote_port)
+          if session != nil
+            session.forward.remote(chef_zero_port, chef_zero_host, ::Knife::Zero::Helper.zero_remote_port)
+          else
+            puts "session is null"
+          end
         end
         super
         rescue => e
